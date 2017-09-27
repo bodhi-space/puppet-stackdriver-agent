@@ -31,5 +31,14 @@ class stackdriver::config::redhat(
     notify  => Service[$svc],
   }
 
+  file_line { 'stackdriver_config_loglevel':
+    ensure   => present,
+    path     => '/opt/stackdriver/collectd/etc/collectd.conf.tmpl',
+    line     => '  LogLevel "warning"',
+    match    => '^  LogLevel "info"',
+    multiple => true,
+    notify   => Service[$svc],
+  }
+
 }
 
